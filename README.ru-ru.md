@@ -1,16 +1,16 @@
 # cryptopro-cert-export
-Export CryptoPro cert from registry to disk
+Экспорт контейнеров JCP в файлики из реестра
 
-Exported folder can be installed in JCP HDIMAGE storage
+Экспортированная папка может быть установлена в JCP HDIMAGE хранилище
 
 # Usage
 
-### Arguments 
-* `-out` output folder, default - '.'
-* `-sid` user SID (eg S-1-5-21-2408434269-2496968396-1739759940-3298), default - '' (all users)
-* `-container` container to export, default - '' (all containers)
+### Аргументы 
+* `-out` папка вывода, по умолчанию - '.'
+* `-sid` SID Пользователя (eg S-1-5-21-2408434269-2496968396-1739759940-3298), по умолчанию - '' (Все пользователи)
+* `-container` Контейнер, по умолчанию - '' (Все контейнеры)
 
-### Example
+### Пример
 ```
 PS C:\users\user\Documents> .\main.exe -out cpcerts2
 2023/08/21 21:42:07 Arg: container     = ''
@@ -100,4 +100,4 @@ Mode                 LastWriteTime         Length Name
 PS C:\users\user\Documents>
 ```
 
-To install it in JCP, copy container folder (eg. named like "`rnd-2-7F.000`") into your JCP HDIMAGE storage (eg. `${user.home}\Local Settings\Application Data\Crypto Pro\`)
+Что бы поставить в JCP, копируем полученную папку с сертификатом (называется примерно "`rnd-2-7F.000`") в JCP HDIMAGE хранилще (Обычно лежит в `${user.home}\Local Settings\Application Data\Crypto Pro\`)

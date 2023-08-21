@@ -12,6 +12,7 @@ import (
 	"github.com/weoses/cryptopro-cert-export/registry2"
 
 	"golang.org/x/sys/windows/registry"
+	"golang.org/x/text/encoding/charmap"
 )
 
 // HKEY_LOCAL_MACHINE\S-1-5-21-2408434269-2496968396-1739759940-6064\Keys\
@@ -104,7 +105,29 @@ func main() {
 				continue
 			}
 
-			folder := keyName[0:8]
+			folder := ""
+
+			for _, char := range []rune(keyName)[0:8] {
+				valByte, _ := charmap.Windows1251.EncodeRune(char)
+
+				// its a magic....
+				if valByte > 127 {
+					valByte = valByte - 20
+					valByte = valByte % 26
+					valByte = valByte + 97
+				}
+
+				if valByte < 35 {
+					valByte = valByte % 26
+					valByte = valByte + 97
+				}
+
+				valConverted := charmap.Windows1251.DecodeByte(valByte)
+				folder += string(valConverted)
+			}
+
+			log.Printf("Encoded Container name - %s \n", folder)
+
 			v := prefixes[folder]
 			folder = fmt.Sprintf("%s.%03d", folder, v)
 			v++
